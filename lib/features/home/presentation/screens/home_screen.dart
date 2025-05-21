@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todo_app/core/routing/app_screens.dart';
 
 import '../../../../core/app_constants/app_colors.dart';
 import '../../../../core/app_constants/app_strings.dart';
@@ -16,12 +17,18 @@ class HomeScreen extends StatelessWidget {
         backgroundColor: AppColors.homeBackgroundColor,
         centerTitle: true,
         title: Text(
-          AppStrings.appBarTitle,
+          AppStrings.appBarTitleForHome,
           style: ApptTextStyles.font20BlackMedium,
         ),
         actions: [IconButton(onPressed: () {}, icon: Icon(Icons.more_vert))],
       ),
       body: SafeArea(child: const Tasks()),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.pushNamed(context, AppScreens.addTodoScreen);
+        },
+        child: Icon(Icons.add),
+      ),
     );
   }
 }
