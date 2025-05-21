@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
+import '../../../../core/di/dependency_injection.dart';
+import '../../domain/entities/todo_entity.dart';
+import '../controllers/home_controller.dart';
 import 'task_content.dart';
 
 class Tasks extends StatelessWidget {
@@ -8,21 +12,33 @@ class Tasks extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      padding: EdgeInsets.zero,
-      physics: const BouncingScrollPhysics(
-        parent: AlwaysScrollableScrollPhysics(),
-      ),
-      itemCount: 8,
-      itemBuilder: (context, index) {
-        return TaskCard();
-      },
-    );
+    final homeController = getIt<HomeController>();
+    homeController.onInit();
+
+    return Obx(() {
+      if (homeController.isLoading.value) {
+        return const Center(child: CircularProgressIndicator());
+      }
+
+      return ListView.builder(
+        padding: EdgeInsets.zero,
+        physics: const BouncingScrollPhysics(
+          parent: AlwaysScrollableScrollPhysics(),
+        ),
+        itemCount: homeController.todos.length,
+        itemBuilder: (context, index) {
+          final todo = homeController.todos[index];
+          return TaskCard(todo: todo);
+        },
+      );
+    });
   }
 }
 
 class TaskCard extends StatelessWidget {
-  const TaskCard({super.key});
+  const TaskCard({super.key, required this.todo});
+
+  final TodoEntity todo;
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +51,7 @@ class TaskCard extends StatelessWidget {
         color: Colors.white,
         borderRadius: BorderRadius.all(Radius.circular(8.r)),
       ),
-      child: TaskContent(),
+      child: TaskContent(todo: todo),
     );
   }
 }
