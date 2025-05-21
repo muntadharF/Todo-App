@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-import 'app_colors.dart';
+import 'package:todo_app/core/app_constants/app_colors.dart';
 
 class ApptTextStyles {
   ApptTextStyles._();
@@ -24,10 +23,10 @@ class ApptTextStyles {
     fontWeight: FontWeight.normal,
   );
 
-  static TextStyle font14Grey600Semibold = TextStyle(
+  static TextStyle font14PrimaryColorMedium = TextStyle(
     fontSize: 14.sp,
-    color: Colors.grey.shade600,
-    fontWeight: FontWeight.w600,
+    color: AppColors.primaryColor,
+    fontWeight: FontWeight.w500,
   );
 
   static TextStyle font15BlackMedium = TextStyle(
