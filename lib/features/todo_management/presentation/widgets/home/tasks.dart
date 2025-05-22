@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-import '../../../../core/di/dependency_injection.dart';
-import '../../domain/entities/todo_entity.dart';
-import '../controllers/home_controller.dart';
+import '../../../../../core/di/dependency_injection.dart';
+import '../../../domain/entities/todo_entity.dart';
+import '../../controllers/home_controller.dart';
 import 'task_content.dart';
 
 class Tasks extends StatelessWidget {

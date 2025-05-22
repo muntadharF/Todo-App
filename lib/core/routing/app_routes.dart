@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../features/add_todo/presentation/screens/add_todo_screen.dart';
-import '../../features/home/presentation/screens/home_screen.dart';
+import '../../features/todo_management/presentation/screens/add_todo_screen.dart';
+import '../../features/todo_management/presentation/screens/home_screen.dart';
 import 'app_screens.dart';
 
 class AppRoutes {

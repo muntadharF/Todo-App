@@ -4,7 +4,7 @@ import 'package:todo_app/core/routing/app_screens.dart';
 import '../../../../core/app_constants/app_colors.dart';
 import '../../../../core/app_constants/app_strings.dart';
 import '../../../../core/app_constants/app_text_styles.dart';
-import '../widgets/tasks.dart';
+import '../widgets/home/tasks.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
