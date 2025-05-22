@@ -1,12 +1,12 @@
 import '../entities/todo_entity.dart';
-import '../repos/home_repo.dart';
+import '../repos/todo_repo.dart';
 
 class TodosUseCase {
-  final HomeRepo homeRepo;
+  final TodoRepo todoRepo;
 
-  TodosUseCase(this.homeRepo);
+  TodosUseCase(this.todoRepo);
 
   Future<List<TodoEntity>> getTodos() async {
-    return homeRepo.getTodos();
+    return todoRepo.getTodos();
   }
 }

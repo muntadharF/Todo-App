@@ -1,17 +1,17 @@
 import '../../domain/entities/todo_entity.dart';
-import '../../domain/repos/home_repo.dart';
-import '../api/home_api.dart';
+import '../../domain/repos/todo_repo.dart';
+import '../api/todo_api.dart';
 import '../mappers/todo_mapper.dart';
 import '../models/todo.dart';
 
-class HomeRepoImpl extends HomeRepo {
-  final HomeApi homeApi;
+class TodoRepoImpl extends TodoRepo {
+  final TodoApi todoApi;
 
-  HomeRepoImpl(this.homeApi);
+  TodoRepoImpl(this.todoApi);
 
   @override
   Future<List<TodoEntity>> getTodos() async {
-    List<Todo> todos = await homeApi.getTodos();
+    List<Todo> todos = await todoApi.getTodos();
 
     List<TodoEntity> todosAsEntity =
         todos.map((todo) => TodoMapper.toTodoEntity(todo)).toList();
@@ -22,7 +22,7 @@ class HomeRepoImpl extends HomeRepo {
   Future<TodoEntity> createTodo(String title, String status) async {
     final todoMap = {"title": title, "status": status};
 
-    final Todo createdTodo = await homeApi.createTodo(todoMap);
+    final Todo createdTodo = await todoApi.createTodo(todoMap);
     return TodoMapper.toTodoEntity(createdTodo);
   }
 }

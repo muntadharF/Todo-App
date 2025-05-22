@@ -1,9 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 
-import '../../features/todo_management/data/api/home_api.dart';
+import '../../features/todo_management/data/api/todo_api.dart';
 import '../../features/todo_management/data/repos/home_repo_impl.dart';
-import '../../features/todo_management/domain/repos/home_repo.dart';
+import '../../features/todo_management/domain/repos/todo_repo.dart';
 import '../../features/todo_management/domain/usecases/create_todo_use_case.dart';
 import '../../features/todo_management/domain/usecases/todos_use_case.dart';
 import '../../features/todo_management/presentation/controllers/todo_controller.dart';
@@ -11,8 +11,8 @@ import '../../features/todo_management/presentation/controllers/todo_controller.
 final GetIt getIt = GetIt.instance;
 
 void setupDependencyInjection() {
-  getIt.registerLazySingleton<HomeApi>(() => HomeApi(createAndSetupDio()));
-  getIt.registerLazySingleton<HomeRepo>(() => HomeRepoImpl(getIt()));
+  getIt.registerLazySingleton<TodoApi>(() => TodoApi(createAndSetupDio()));
+  getIt.registerLazySingleton<TodoRepo>(() => TodoRepoImpl(getIt()));
   getIt.registerLazySingleton<TodosUseCase>(() => TodosUseCase(getIt()));
   getIt.registerLazySingleton<CreateTodoUseCase>(() => CreateTodoUseCase(getIt()));
   getIt.registerLazySingleton<TodoController>(() => TodoController(getIt(), getIt()));

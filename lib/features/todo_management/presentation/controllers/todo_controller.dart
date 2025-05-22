@@ -31,7 +31,7 @@ class TodoController extends GetxController {
   Future<void> createTodo(String title, String status) async {
     try {
       isLoading.value = true;
-      TodoEntity newTodo = await createTodoUseCase.createTodo(title, status = 'pending');
+      TodoEntity newTodo = await createTodoUseCase.createTodo(title, status);
       todos.insert(0, newTodo);
     } finally {
       isLoading.value = false;

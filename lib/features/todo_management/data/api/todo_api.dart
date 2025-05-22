@@ -3,11 +3,11 @@ import 'package:retrofit/retrofit.dart';
 
 import '../models/todo.dart';
 
-part 'home_api.g.dart';
+part 'todo_api.g.dart';
 
 @RestApi(baseUrl: "https://gorest.co.in/public/v2/users/7439480")
-abstract class HomeApi {
-  factory HomeApi(Dio dio) = _HomeApi;
+abstract class TodoApi {
+  factory TodoApi(Dio dio) = _TodoApi;
 
   @GET('/todos')
   Future<List<Todo>> getTodos();

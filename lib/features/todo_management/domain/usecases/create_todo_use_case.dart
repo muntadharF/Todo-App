@@ -1,12 +1,12 @@
 import '../entities/todo_entity.dart';
-import '../repos/home_repo.dart';
+import '../repos/todo_repo.dart';
 
 class CreateTodoUseCase {
-  final HomeRepo homeRepo;
+  final TodoRepo todoRepo;
 
-  CreateTodoUseCase(this.homeRepo);
+  CreateTodoUseCase(this.todoRepo);
 
   Future<TodoEntity> createTodo(String title, String status) async {
-    return homeRepo.createTodo(title, status);
+    return todoRepo.createTodo(title, status);
   }
 }

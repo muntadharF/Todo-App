@@ -21,7 +21,7 @@ class SaveTodoBtn extends StatelessWidget {
           final title = titleController.text.trim();
 
           if (title.isNotEmpty) {
-            todoController.createTodo(title, 'pending');
+            todoController.createTodo(title, 'Pending');
             Navigator.pop(context);
           }
         },
