@@ -1,5 +1,4 @@
-import 'package:todo_app/features/todo_management/domain/entities/todo_entity.dart';
-
+import '../entities/todo_entity.dart';
 import '../repos/home_repo.dart';
 
 class TodosUseCase {

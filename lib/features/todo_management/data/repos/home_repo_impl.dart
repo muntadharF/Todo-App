@@ -17,4 +17,12 @@ class HomeRepoImpl extends HomeRepo {
         todos.map((todo) => TodoMapper.toTodoEntity(todo)).toList();
     return todosAsEntity;
   }
+
+  @override
+  Future<TodoEntity> createTodo(String title, String status) async {
+    final todoMap = {"title": title, "status": status};
+
+    final Todo createdTodo = await homeApi.createTodo(todoMap);
+    return TodoMapper.toTodoEntity(createdTodo);
+  }
 }

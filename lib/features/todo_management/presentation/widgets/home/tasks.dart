@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 
 import '../../../../../core/di/dependency_injection.dart';
 import '../../../domain/entities/todo_entity.dart';
-import '../../controllers/home_controller.dart';
+import '../../controllers/todo_controller.dart';
 import 'task_content.dart';
 
 class Tasks extends StatelessWidget {
@@ -12,11 +12,11 @@ class Tasks extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final homeController = getIt<HomeController>();
-    homeController.onInit();
+    final todoController = getIt<TodoController>();
+    todoController.onInit();
 
     return Obx(() {
-      if (homeController.isLoading.value) {
+      if (todoController.isLoading.value) {
         return const Center(child: CircularProgressIndicator());
       }
 
@@ -25,9 +25,9 @@ class Tasks extends StatelessWidget {
         physics: const BouncingScrollPhysics(
           parent: AlwaysScrollableScrollPhysics(),
         ),
-        itemCount: homeController.todos.length,
+        itemCount: todoController.todos.length,
         itemBuilder: (context, index) {
-          final todo = homeController.todos[index];
+          final todo = todoController.todos[index];
           return TaskCard(todo: todo);
         },
       );

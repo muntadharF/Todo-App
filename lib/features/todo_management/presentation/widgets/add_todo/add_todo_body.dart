@@ -11,7 +11,6 @@ class AddTodoBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final titleController = TextEditingController();
-    final descriptionController = TextEditingController();
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -20,18 +19,9 @@ class AddTodoBody extends StatelessWidget {
           controller: titleController,
           label: AppStrings.appTextFieldLableTitle,
         ),
-        verticalSpace(16),
-
-        AppTextField(
-          controller: descriptionController,
-          label: AppStrings.appTextFieldLableDescription,
-        ),
         verticalSpace(24),
 
-        SaveTodoBtn(
-          titleController: titleController,
-          descriptionController: descriptionController,
-        ),
+        SaveTodoBtn(titleController: titleController),
       ],
     );
   }

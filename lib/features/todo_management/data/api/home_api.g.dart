@@ -10,7 +10,7 @@ part of 'home_api.dart';
 
 class _HomeApi implements HomeApi {
   _HomeApi(this._dio, {this.baseUrl, this.errorLogger}) {
-    baseUrl ??= 'https://gorest.co.in/public/v2';
+    baseUrl ??= 'https://gorest.co.in/public/v2/users/7439480';
   }
 
   final Dio _dio;
@@ -42,6 +42,34 @@ class _HomeApi implements HomeApi {
           _result.data!
               .map((dynamic i) => Todo.fromJson(i as Map<String, dynamic>))
               .toList();
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    return _value;
+  }
+
+  @override
+  Future<Todo> createTodo(Map<String, dynamic> todo) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(todo);
+    final _options = _setStreamType<Todo>(
+      Options(method: 'POST', headers: _headers, extra: _extra)
+          .compose(
+            _dio.options,
+            '/todos',
+            queryParameters: queryParameters,
+            data: _data,
+          )
+          .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
+    );
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late Todo _value;
+    try {
+      _value = Todo.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;

@@ -4,8 +4,9 @@ import 'package:get_it/get_it.dart';
 import '../../features/todo_management/data/api/home_api.dart';
 import '../../features/todo_management/data/repos/home_repo_impl.dart';
 import '../../features/todo_management/domain/repos/home_repo.dart';
+import '../../features/todo_management/domain/usecases/create_todo_use_case.dart';
 import '../../features/todo_management/domain/usecases/todos_use_case.dart';
-import '../../features/todo_management/presentation/controllers/home_controller.dart';
+import '../../features/todo_management/presentation/controllers/todo_controller.dart';
 
 final GetIt getIt = GetIt.instance;
 
@@ -13,7 +14,8 @@ void setupDependencyInjection() {
   getIt.registerLazySingleton<HomeApi>(() => HomeApi(createAndSetupDio()));
   getIt.registerLazySingleton<HomeRepo>(() => HomeRepoImpl(getIt()));
   getIt.registerLazySingleton<TodosUseCase>(() => TodosUseCase(getIt()));
-  getIt.registerLazySingleton<HomeController>(() => HomeController(getIt()));
+  getIt.registerLazySingleton<CreateTodoUseCase>(() => CreateTodoUseCase(getIt()));
+  getIt.registerLazySingleton<TodoController>(() => TodoController(getIt(), getIt()));
 }
 
 Dio createAndSetupDio() {
@@ -22,6 +24,8 @@ Dio createAndSetupDio() {
   dio
     ..options.connectTimeout = Duration(seconds: 10)
     ..options.receiveTimeout = Duration(seconds: 30);
+  
+  dio.options.headers['Authorization'] = 'Bearer 25349713e28ce7a6202778f652bf8b78418470556a08e2f1d90f0f0acde957a2';
 
   dio.interceptors.add(
     LogInterceptor(
