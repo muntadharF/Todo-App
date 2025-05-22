@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
 
-import '../../../../../core/di/dependency_injection.dart';
 import '../../../domain/entities/todo_entity.dart';
-import '../../controllers/todo_controller.dart';
+import '../../providers/todo_provider.dart';
 import 'task_content.dart';
 
 class Tasks extends StatelessWidget {
@@ -12,26 +11,29 @@ class Tasks extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final todoController = getIt<TodoController>();
-    todoController.onInit();
-
-    return Obx(() {
-      if (todoController.isLoading.value) {
-        return const Center(child: CircularProgressIndicator());
-      }
-
-      return ListView.builder(
-        padding: EdgeInsets.zero,
-        physics: const BouncingScrollPhysics(
-          parent: AlwaysScrollableScrollPhysics(),
-        ),
-        itemCount: todoController.todos.length,
-        itemBuilder: (context, index) {
-          final todo = todoController.todos[index];
-          return TaskCard(todo: todo);
-        },
-      );
-    });
+    return Consumer(
+      builder: (context, ref, child) {
+        final todosAsync = ref.watch(todoProvider);
+    
+        return todosAsync.when(
+          loading: () => const Center(child: CircularProgressIndicator()),
+          error: (error, stack) => Center(child: Text('Error: $error')),
+          data: (todos) {
+            return ListView.builder(
+              padding: EdgeInsets.zero,
+              physics: const BouncingScrollPhysics(
+                parent: AlwaysScrollableScrollPhysics(),
+              ),
+              itemCount: todos.length,
+              itemBuilder: (context, index) {
+                final todo = todos[index];
+                return TaskCard(todo: todo);
+              },
+            );
+          },
+        );
+      },
+    );
   }
 }
 

@@ -1,33 +1,52 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../core/app_constants/app_strings.dart';
-import '../../../../../core/di/dependency_injection.dart';
-import '../../controllers/todo_controller.dart';
+import '../../providers/todo_provider.dart';
 
-class SaveTodoBtn extends StatelessWidget {
+final isSavingProvider = StateProvider<bool>((ref) => false);
+
+class SaveTodoBtn extends ConsumerWidget {
   const SaveTodoBtn({super.key, required this.titleController});
 
   final TextEditingController titleController;
 
   @override
-  Widget build(BuildContext context) {
-    final todoController = getIt<TodoController>();
+  Widget build(BuildContext context, WidgetRef ref) {
+    final isSaving = ref.watch(isSavingProvider);
 
     return SizedBox(
       width: double.infinity,
       child: ElevatedButton.icon(
-        onPressed: () {
-          final title = titleController.text.trim();
+        onPressed:
+            isSaving
+                ? null
+                : () async {
+                  final title = titleController.text.trim();
+                  if (title.isNotEmpty) {
+                    ref.read(isSavingProvider.notifier).state = true;
 
-          if (title.isNotEmpty) {
-            todoController.createTodo(title, 'Pending');
-            Navigator.pop(context);
-          }
-        },
+                    await ref
+                        .read(todoProvider.notifier)
+                        .createTodo(title, 'Pending');
 
-        icon: const Icon(Icons.check),
-        label: const Text(AppStrings.todoTextBtnSave),
+                    ref.read(isSavingProvider.notifier).state = false;
+
+                    if (context.mounted) {
+                      Navigator.pop(context);
+                    }
+                  }
+                },
+        icon:
+            isSaving
+                ? const SizedBox(
+                  width: 16,
+                  height: 16,
+                  child: CircularProgressIndicator(strokeWidth: 2),
+                )
+                : const Icon(Icons.check),
+        label: Text(isSaving ? 'Saving...' : AppStrings.todoTextBtnSave),
         style: ElevatedButton.styleFrom(
           padding: EdgeInsets.symmetric(vertical: 16.h),
           shape: RoundedRectangleBorder(

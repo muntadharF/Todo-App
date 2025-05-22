@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'core/app_constants/app_colors.dart';
@@ -13,7 +14,7 @@ void main() async {
   // Ensure screen size for flutter_screenutil (fixes hidden text in release mode)
   await ScreenUtil.ensureScreenSize();
 
-  runApp(const MyApp());
+  runApp(const ProviderScope(child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
