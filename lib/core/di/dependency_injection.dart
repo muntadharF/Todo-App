@@ -1,11 +1,11 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 
-import '../../features/home/data/api/home_api.dart';
-import '../../features/home/data/repos/home_repo_impl.dart';
-import '../../features/home/domain/repos/home_repo.dart';
-import '../../features/home/domain/usecases/todos_use_case.dart';
-import '../../features/home/presentation/controllers/home_controller.dart';
+import '../../features/todo_management/data/api/home_api.dart';
+import '../../features/todo_management/data/repos/home_repo_impl.dart';
+import '../../features/todo_management/domain/repos/home_repo.dart';
+import '../../features/todo_management/domain/usecases/todos_use_case.dart';
+import '../../features/todo_management/presentation/controllers/home_controller.dart';
 
 final GetIt getIt = GetIt.instance;
 

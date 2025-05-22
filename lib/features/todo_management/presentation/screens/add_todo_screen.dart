@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/app_constants/app_strings.dart';
-import '../widgets/add_todo_body.dart';
+import '../widgets/add_todo/add_todo_body.dart';
 
 class AddTodoScreen extends StatelessWidget {
   const AddTodoScreen({super.key});
